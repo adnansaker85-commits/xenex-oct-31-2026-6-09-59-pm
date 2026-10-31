@@ -1,0 +1,9 @@
+{
+  "name": "Xenex",
+  "description": "A modern social media platform for sharing moments, chatting with friends, and exploring the world.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "User account information and social data.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "photoURL": { "type": "string", "format": "uri" },
+        "bio": { "type": "string" },
+        "followers": { "type": "array", "items": { "type": "string" } },
+        "following": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "object" }
+      },
+      "required": ["uid", "displayName", "email", "photoURL"]
+    },
+    "Post": {
+      "title": "Post",
+      "description": "A social media post.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "authorId": { "type": "string" },
+        "authorName": { "type": "string" },
+        "authorPhoto": { "type": "string" },
+        "content": { "type": "string" },
+        "mediaUrl": { "type": "string" },
+        "mediaType": { "type": "string", "enum": ["image", "video"] },
+        "likes": { "type": "array", "items": { "type": "string" } },
+        "commentsCount": { "type": "number" },
+        "createdAt": { "type": "object" }
+      },
+      "required": ["authorId", "authorName", "authorPhoto", "content"]
+    },
+    "Comment": {
+      "title": "Comment",
+      "description": "A comment on a post.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "postId": { "type": "string" },
+        "authorId": { "type": "string" },
+        "authorName": { "type": "string" },
+        "authorPhoto": { "type": "string" },
+        "content": { "type": "string" },
+        "createdAt": { "type": "object" }
+      },
+      "required": ["postId", "authorId", "authorName", "authorPhoto", "content"]
+    },
+    "ChatMessage": {
+      "title": "Chat Message",
+      "description": "A private message between users.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "senderId": { "type": "string" },
+        "receiverId": { "type": "string" },
+        "content": { "type": "string" },
+        "createdAt": { "type": "object" },
+        "read": { "type": "boolean" }
+      },
+      "required": ["senderId", "receiverId", "content"]
+    }
+  },
+  "firestore": {
+    "users": {
+      "schema": "UserProfile",
+      "description": "Collection of user profiles."
+    },
+    "posts": {
+      "schema": "Post",
+      "description": "Collection of social posts."
+    },
+    "posts/{postId}/comments": {
+      "schema": "Comment",
+      "description": "Subcollection of comments for a post."
+    },
+    "chats": {
+      "schema": "ChatMessage",
+      "description": "Collection of chat messages."
+    }
+  }
+}
